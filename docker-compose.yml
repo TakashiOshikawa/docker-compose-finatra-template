@@ -15,7 +15,7 @@ services:
     #command: activator run
     ports:
       - 9000:9000
-    volumes:
+    volumes_from:
       - .:/var/app
       - buildcache
     stdin_open: true
