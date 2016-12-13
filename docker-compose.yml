@@ -1,0 +1,21 @@
+version: '2'
+services:
+
+  # sbt用のキャッシュファイルを保存しておくコンテナ
+  buildcache:
+    image: busybox
+    volumes:
+      - /buildcache/.ivy2/cache:/root/.ivy2/cache
+      - /buildcache/.sbt/boot:/root/.sbt/boot
+
+  # finatraが動くコンテナ
+  finatra-server:
+    working_dir: /var/app
+    build: dockerfiles/finatra-sever/
+    #command: activator run
+    ports:
+      - 9000:9000
+    volumes:
+      - .:/var/app
+      - buildcache
+    stdin_open: true
