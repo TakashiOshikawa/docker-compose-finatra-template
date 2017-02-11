@@ -10,12 +10,13 @@ services:
 
   # finatraが動くコンテナ
   finatra-server:
-    working_dir: /var/app
-    build: dockerfiles/finatra-sever/
+    working_dir: /app
+    build: dockerfiles/finatra-server
     #command: activator run
     ports:
       - 9000:9000
+    volumes:
+      - .:/app
     volumes_from:
-      - .:/var/app
       - buildcache
     stdin_open: true
