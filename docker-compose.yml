@@ -19,7 +19,8 @@ services:
       - .:/app
       - buildcache:/root/.ivy2/cache
       - buildcache:/root/.sbt/boot
-    command: sbt 'run -http.port=:9000 -http.name=:0.0.0.0'
+    #command: sbt 'run -http.port=:9000 -http.name=:0.0.0.0'
+    command: sbt '~re-start -http.port=:9000 -http.name=:0.0.0.0'
     #volumes_from:
     #  - buildcache
     stdin_open: true
