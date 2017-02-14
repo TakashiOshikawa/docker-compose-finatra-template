@@ -1,12 +1,12 @@
-version: '2'
+version: '3'
 services:
 
   # sbt用のキャッシュファイルを保存しておくコンテナ
-  buildcache:
-    image: busybox
-    volumes:
-      - /buildcache/.ivy2/cache:/root/.ivy2/cache
-      - /buildcache/.sbt/boot:/root/.sbt/boot
+  #buildcache:
+  #  image: busybox
+  #  volumes:
+  #    - /buildcache/.ivy2/cache:/root/.ivy2/cache
+  #    - /buildcache/.sbt/boot:/root/.sbt/boot
 
   # finatraが動くコンテナ
   finatra-server:
@@ -17,6 +17,11 @@ services:
       - 9000:9000
     volumes:
       - .:/app
-    volumes_from:
-      - buildcache
+      - buildcache:/root/.ivy2/cache
+      - buildcache:/root/.sbt/boot
+    command: sbt 'run -http.port=:9000 -http.name=:0.0.0.0'
+    #volumes_from:
+    #  - buildcache
     stdin_open: true
+volumes:
+  buildcache:
